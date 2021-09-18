@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -51,6 +52,7 @@ public class AppContext {
 //	@Autowired
 //	private Environment environment;
 
+	@Primary
 	@Bean(name = "sessionFactory")
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -60,7 +62,7 @@ public class AppContext {
 		return sessionFactory;
 	}
 
-	@Bean(name = "dataSource")
+	
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -74,6 +76,7 @@ public class AppContext {
 		return dataSource;
 	}
 
+	@Primary
 	@Bean(name = "transactionManager")
 	public HibernateTransactionManager getTransactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
@@ -97,7 +100,7 @@ public class AppContext {
 		return transactionManager;
 	}
 
-	@Bean(name = "cloudDataSource")
+	
 	public DataSource cloudDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(driverClassName);

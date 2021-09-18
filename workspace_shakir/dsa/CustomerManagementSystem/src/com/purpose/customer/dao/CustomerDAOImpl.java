@@ -19,7 +19,6 @@ import com.purpose.customer.entity.Customer;
 public class CustomerDAOImpl implements CustomerDAO {
 
 	@Autowired
-	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 
 	@Autowired
@@ -60,9 +59,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public void saveCustomerInCloud(Customer theCustomer) {
-		Session session = cloudSessionFactory.openSession();
+		Session session = cloudSessionFactory.getCurrentSession();
 		session.save(theCustomer);
-		session.close();
 	}
 
 }
